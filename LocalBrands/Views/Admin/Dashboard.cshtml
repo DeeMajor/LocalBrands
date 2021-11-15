@@ -1,0 +1,249 @@
+﻿@model LocalBrands.Models.Viewmodels.AdminDashViewModel
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+
+}
+
+<div class="container">
+
+    <!-- Page Heading -->
+    <div>
+        <h3 class=" text-gray-800" style="text-align:center; margin-top:50px">Admin DASHBOARD</h3>
+
+    </div>
+    <br />
+    <br />
+
+    <!-- Content Row -->
+    <div class="row">
+
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Orders
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.orders.Count()</div>
+                            <a class="btn btn-success btn-circle btn-sm" onclick="myFunction()">
+                                <i class="fa fa-eye"></i>
+                            </a>
+                        </div>
+                        <div class="col-auto">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Items
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.Item.Count()</div>
+                            <a href="#" class="btn btn-success btn-circle btn-sm" onclick="myFunction2()">
+                                <i class="fa fa-eye"></i>
+                            </a>
+                        </div>
+                        <div class="col-auto">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pending Requests Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                Brand Owners
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.BrandOwners.Count()</div>
+                            <a href="#" class="btn btn-success btn-circle btn-sm" onclick="myFunction3()">
+                                <i class="fa fa-eye"></i>
+                            </a>
+                            <span>
+                                <a href="#" class="btn btn-primary btn-circle btn-sm" onclick="myFunction7()">
+                                    <i class="fa fa-plus-circle"></i>
+                                </a>
+                            </span>
+                        </div>
+                        <div class="col-auto">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- Content Row -->
+
+    <div class="row" style="display:none" id="items">
+
+        @{
+            if (Model.orders.Count() == 0)
+            {
+
+                <h5 class=" text-gray-800" style="text-align:center; margin-top:50px">There are no Incoming Orders</h5>
+
+            }
+            else
+            {
+                Html.RenderAction("RenderOrders", "Admin");
+            }
+
+        }
+    </div>
+
+    <div class="row" style="display:none" id="categories">
+        @{
+
+            if (Model.Item.Count() == 0)
+            {
+                <h5 class=" text-gray-800" style="text-align:center; margin-top:50px">There are no Items</h5>
+            }
+            else
+            {
+                Html.RenderAction("RendeItems", "Admin");
+            }
+
+        }
+    </div>
+    <div class="row" style="display:none" id="departments">
+        @{
+            if (Model.BrandOwners.Count() == 0)
+            {
+                <h5 class=" text-gray-800" style="text-align:center; margin-top:50px">There are no Brand Owners</h5>
+            }
+            else
+            {
+                Html.RenderAction("RenderBrandOwners", "Admin");
+            }
+
+        }
+    </div>
+    @*<div class="row" style="display:none" id="returned">
+
+            @{
+                if (Model.NomberOFReturned == 0)
+                {
+                    <h5 class=" text-gray-800" style="text-align:center; margin-top:50px">There are no Returned Items</h5>
+                }
+                else
+                {
+                    Html.RenderAction("RenderReturned", "BrandOwners");
+                }
+            }
+        </div>*@
+
+    <div class="row" style="display:none" id="CreateDepartment">
+        @{
+            Html.RenderAction("RenderCreateDepartment", "BrandOwners");
+
+        }
+    </div>
+    <div class="row" style="display:none" id="CreateCategory">
+        @{
+            Html.RenderAction("RenderCreateCategory", "BrandOwners");
+
+        }
+    </div>
+    <div class="row" style="display:none" id="CreateItems">
+        @{
+            Html.RenderAction("RenderCreateItem", "BrandOwners");
+
+        }
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+
+
+    });
+    function myFunction() {
+
+        $("#departments").show();
+        $("#categories").hide();
+        $("#items").hide();
+        $("#returned").hide();
+        $("#CreateDepartment").hide();
+        $("#CreateCategory").hide();
+        $("#CreateItems").hide();
+    }
+    function myFunction2() {
+
+        $("#departments").hide();
+        $("#categories").show();
+        $("#items").hide();
+        $("#returned").hide();
+        $("#CreateDepartment").hide();
+        $("#CreateCategory").hide();
+        $("#CreateItems").hide();
+    }
+    function myFunction3() {
+
+        $("#departments").hide();
+        $("#categories").hide();
+        $("#items").show();
+        $("#returned").hide();
+        $("#CreateDepartment").hide();
+        $("#CreateCategory").hide();
+        $("#CreateItems").hide();
+    }
+    function myFunction4() {
+
+        $("#departments").hide();
+        $("#categories").hide();
+        $("#items").hide();
+        $("#CreateDepartment").hide();
+        $("#CreateCategory").hide();
+        $("#CreateItems").hide();
+        $("#returned").show();
+
+    }
+    function myFunction5() {
+
+        $("#departments").hide();
+        $("#categories").hide();
+        $("#items").hide();
+        $("#returned").hide();
+        $("#CreateCategory").hide();
+        $("#CreateDepartment").show();
+        $("#CreateItems").hide();
+    }
+    function myFunction6() {
+
+        $("#departments").hide();
+        $("#categories").hide();
+        $("#items").hide();
+        $("#returned").hide();
+        $("#CreateDepartment").hide();
+        $("#CreateCategory").show();
+        $("#CreateItems").hide();
+    }
+    function myFunction7() {
+
+        $("#departments").hide();
+        $("#categories").hide();
+        $("#items").hide();
+        $("#returned").hide();
+        $("#CreateDepartment").hide();
+        $("#CreateCategory").hide();
+        $("#CreateItems").show();
+    }
+
+</script>

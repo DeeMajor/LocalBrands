@@ -1,0 +1,58 @@
+﻿@model IEnumerable<LocalBrands.Models.Order>
+
+@{ var order = ViewBag.Status;
+    ViewBag.Title = "Customer Orders | " + order;
+    Layout = "~/Views/Shared/_Client.cshtml";
+}
+<h3 class="card-title card-padding pb-0" style="text-align: center; margin-bottom: 50px; margin-top: 50px;">My Orders</h3>
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Order Number</th>
+            <th scope="col">Date</th>
+            <th scope="col">Status</th>
+            <th scope="col"> Driver</th>
+            <th scope="col"> </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th scope="row">@item.Order_ID</th>
+                <td>@item.date_created</td>
+                <td>@item.status</td>
+                @if (item.Driver_ID == null)
+                {
+                    <td>@item.Driver.FirstName @item.Driver.LastName</td>
+                }
+                else
+                {
+                    <td>NA</td>
+                }
+                <td> <div class="main-button">
+                        <a href="@Url.Action("Order_Details", "Orders", new { id =item.Order_ID } )" class="btn btn-dark mt-auto">Order Details</a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script type="text/javascript">
+    $('#my_list').ModelsTable(
+        {
+            dom: 'Bfrtip',
+            lengthMenu: [
+                [10, 25, 50, -1],
+                ['10 rows', '25 rows', '50 rows', 'Show all']
+            ],
+            buttons: [
+                'pageLength', 'pdf', 'print'
+            ]
+        }
+    );
+    $('#my_list')
+        .removeClass('display')
+        .addClass('table table-striped table-hover');
+</script>

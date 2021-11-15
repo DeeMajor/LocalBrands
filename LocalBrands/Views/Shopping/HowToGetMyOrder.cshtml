@@ -1,0 +1,208 @@
+﻿
+@{ ViewBag.Title = "How would you like to receive your order?";
+    Layout = "~/Views/Shared/_Client.cshtml"; }
+
+<section class="section" id="our-classes">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-heading text-center" ">
+                    <h2>Delivery <em>Method</em></h2>
+                    <img src="assets/images/line-dec.png" alt="">
+                    <p>Please choose your delivery method</p>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-xs-12">
+                <div class="contact-form">
+
+                    <form method="post">
+                        <div class="row">
+                            <div class="board">
+
+                                <div class="tab-content">
+                                    <div class="">
+                                        <h6 class="head text-center">Collect your order at our warehouse.</h6>
+                                        <h6>  123 Sept St, Durban, 4001 </h6>
+                                        <h6>   Monday - Friday</h6>
+                                        <h6>  8:30 am - 17:00 pm working hours</h6>
+                                        <br />
+
+                                        <div class="main-button">
+                                            <a href="@Url.Action("PlaceOrder","Shopping", new {id = "collect" })" class="btn btn-dark mt-auto"> Continue</a>
+                                        </div>
+                                        <hr />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+<section style="padding-bottom:100px">
+    <div class="row">
+        <div class="container">
+            <div class="">
+                <div class=" ">
+                    <br />
+                    <h3 class="head text-center">Or</h3>
+                    <br />
+                    <br />
+
+                    <h6 class="head text-center">Deliver the order to my address</h6>
+                    <br />
+                    <form method="post">
+                        <div class="input_field" style="margin-left:160px">
+                            <div class="input-group">
+
+                                @*<textarea type="text" class="form-control" id="Physical_Address" ng-model="PropertyModel.Physical_Address" required ng-minlength="3" ng-maxlength="255" style="min-height:100px; resize:none" placeholder="Physical Address"></textarea>*@
+                                <div id="locationField">
+                                    <input id="autocomplete" name="autocomplete" placeholder="Enter your address here" required class="form-control" onFocus="geolocate()" type="text" style="min-width:360px" />
+                                </div>
+                                <br />
+                                <table id="address">
+                                    <tr>
+                                        <td style="color:black;width:70px"><i>Street</i></td>
+                                        <td style="min-width:460px" colspan="2">
+                                            <input name="street_number" type="text" id="street_number" required="required" style="max-width:60px">
+                                            <input name="street_name" type="text" id="route" required="required" style="max-width: 220px">
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="color:black;width:70px"><i>City</i></td>
+                                        <td class="wideField" colspan="3">
+                                            <input id="locality" name="City" required="required" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="color:black;width:70px"><i>State</i></td>
+                                        <td style="min-width:460px" colspan="2">
+                                            <input id="administrative_area_level_1" name="State" style="max-width:80px" />
+                                            &nbsp;&nbsp;&nbsp;
+                                            <i>Zip Code</i>
+                                            &nbsp;&nbsp;&nbsp;
+                                            <input id="postal_code" name="ZipCode" required="required" style="max-width:102px" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="color:black;width:70px"><i>Country</i></td>
+                                        <td colspan="3">
+                                            <input name="Country" id="country" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+
+                                    </tr>
+                                </table>
+
+                            </div>
+                            <input type="submit" value="Continue" class="btn btn-dark mt-auto" />
+                        </div>
+                        </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<hr />
+
+<script type="text/javascript">
+    $(function () {
+        $('a[title]').tooltip();
+    });
+</script>
+<script>
+      // This example displays an address form, using the autocomplete feature
+      // of the Google Places API to help users fill in the information.
+
+      // This example requires the Places library. Include the libraries=places
+      // parameter when you first load the API. For example:
+      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+
+      var placeSearch, autocomplete;
+      var componentForm = {
+        street_number: 'short_name',
+        route: 'long_name',
+        locality: 'long_name',
+        administrative_area_level_1: 'short_name',
+        country: 'long_name',
+        postal_code: 'short_name'
+      };
+
+      function initAutocomplete() {
+        // Create the autocomplete object, restricting the search to geographical
+        // location types.
+        autocomplete = new google.maps.places.Autocomplete(
+            @*/** @type {!HTMLInputElement} */*@(document.getElementById('autocomplete')),
+            {types: ['geocode']});
+
+        // When the user selects an address from the dropdown, populate the address
+        // fields in the form.
+        autocomplete.addListener('place_changed', fillInAddress);
+      }
+
+      function fillInAddress() {
+        // Get the place details from the autocomplete object.
+        var place = autocomplete.getPlace();
+
+        for (var component in componentForm) {
+            document.getElementById(component).value = '';
+            document.getElementById(component).disabled = false;
+        }
+
+        // Get each component of the address from the place details
+        // and fill the corresponding field on the form.
+        for (var i = 0; i < place.address_components.length; i++) {
+          var addressType = place.address_components[i].types[0];
+          if (componentForm[addressType]) {
+            var val = place.address_components[i][componentForm[addressType]];
+            document.getElementById(addressType).value = val;
+          }
+        }
+      }
+
+      // Bias the autocomplete object to the user's geographical location,
+      // as supplied by the browser's 'navigator.geolocation' object.
+      function geolocate() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var geolocation = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+            var circle = new google.maps.Circle({
+              center: geolocation,
+              radius: position.coords.accuracy
+            });
+            autocomplete.setBounds(circle.getBounds());
+          });
+        }
+      }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNjO3x-zMLpKEx9L6CuCg6voTPJl8J1dA&libraries=places&callback=initAutocomplete"
+        async defer></script>
+<script>
+    $(function () {
+        var input = document.getElementById("autocomplete");
+        var autocomplete = new google.maps.places.Autocomplete(input);
+
+        $('#my-modal').modal('show');
+
+    });
+
+</script>
+
+

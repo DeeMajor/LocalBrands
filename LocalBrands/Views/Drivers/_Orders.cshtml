@@ -1,0 +1,54 @@
+﻿@model LocalBrands.Models.Viewmodels.DriverViewModel
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary" style="text-align:center;">Your Items</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Order Number</th>
+                        <th>Recipient</th>
+                        <th>Address</th>
+                        <th></th>
+
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model.orders)
+                    {
+                        <tr>
+                            <td> @item.Order_ID</td>
+                            <td> @item.Customer.FirstName @item.Customer.LastName </td>
+                            <td>  @item.Shipping_Addresses </td>
+                           
+                            <td>
+
+                                <a href="@Url.Action("OrderDetails","Driver", new { id = item.Order_ID})" class="d-none d-sm-inline-block btn btn-sm btn-info shadow-sm">
+                                    Order Details
+                                </a>
+                                @if (item.status == "Assigned To Driver")
+                                {
+                                    <a href="@Url.Action("Deliver","Driver", new { id = item.Order_ID})" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                        Deliver
+                                    </a>
+                                }
+                                @if (item.status=="Delivered")
+                                {
+                                    <a href="@Url.Action("Complete","Driver", new {id = item.Order_ID})" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
+                                        Complete
+                                    </a>
+                                }
+
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

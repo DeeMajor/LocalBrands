@@ -1,0 +1,176 @@
+﻿@model LocalBrands.Models.OrderDetailModel
+@{ ViewBag.Title = "Payment";
+    Layout = "~/Views/Shared/_Client.cshtml"; }
+<!-- ***** Preloader Start ***** -->
+<div id="js-preloader" class="js-preloader">
+    <div class="preloader-inner">
+        <span class="dot"></span>
+        <div class="dots">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</div>
+<!-- ***** Preloader End ***** -->
+
+
+
+<section class="section" id="contact-us">
+    <div class="container">
+        <h2 class="title text-center">Review your Order Details </h2>
+        <br />
+        <div class="row">
+
+            <div class="col-lg-6 col-md-6 col-xs-12">
+                <table class="table">
+                    <tr>
+                        <th width="140px">Order Number</th>
+                        <th>
+                            @Html.DisplayFor(x => x.order.Order_ID)
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Date Requested</th>
+                        <th>
+                            @Model.order.date_created.ToLongDateString()
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Status</th>
+                        <th>
+                            @Model.order.status
+                        </th>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-lg-6 col-md-6 col-xs-12">
+
+                @if (Model.shipping_method == "Standard delivery")
+                {
+    <h4>Receipt by Standard Delivery</h4>
+                    <table class="table">
+                        <tr>
+                            <td>@Html.DisplayNameFor(x => x.address.street_number)</td>
+                            <td>
+                                @Html.DisplayFor(x => x.address.street_number)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>@Html.DisplayNameFor(x => x.address.street_name)</td>
+                            <td>
+                                @Html.DisplayFor(x => x.address.street_name)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>@Html.DisplayNameFor(x => x.address.City)</td>
+                            <td>
+                                @Html.DisplayFor(x => x.address.City)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>@Html.DisplayNameFor(x => x.address.State)</td>
+                            <td>
+                                @Html.DisplayFor(x => x.address.State)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>@Html.DisplayNameFor(x => x.address.ZipCode)</td>
+                            <td>
+                                @Html.DisplayFor(x => x.address.ZipCode)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(x => x.address.Country)</th>
+                            <td>
+                                @Html.DisplayFor(x => x.address.Country)
+                            </td>
+                        </tr>
+                    </table> }
+                else
+                {
+    <hr />
+                    <p>
+                        Collect your order at our warehouse.
+                        <br />
+                        <i class="fa fa-map-marker"></i>  21 May St, Durban, 4001
+                        <br />
+                        <i class="fa fa-clock-o"></i>  8:30 am - 17:00 working hours
+                        <br />
+                    </p>}
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ***** Contact Us Area Ends ***** -->
+
+<section class="section" id="contact-us" style="margin-top:0px">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-xs-12">
+                <table class="table">
+                    <tr>
+                        <th>
+                            Picture
+                        </th>
+                        <th>
+                            Item
+                        </th>
+                        <th>
+                            Qty
+                        </th>
+                        <th>
+                            Price
+                        </th>
+                    </tr>
+
+                    @foreach (var item in Model.order_items)
+                    {
+        <tr>
+            <td>
+                @if (item.Item.Picture != null)
+                {
+                    var base64 = Convert.ToBase64String(item.Item.Picture);
+                    var imgSrc = string.Format("data:image/gif;base64,{0}", base64);
+<img src="@imgSrc" width="60" height="70" />}
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.price)
+            </td>
+        </tr>
+}
+
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <th>
+                            @Html.DisplayFor(x => x.order_total)
+                        </th>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <div class="main-button">
+                                <a href="@Url.Action("OnceOff", "Payment", new { id = Model.order.Order_ID})" class="btn btn-success"><i class="fa fa-lock"></i> Secure Payment</a>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-lg-6 col-md-6 col-xs-12">
+
+
+            </div>
+        </div>
+    </div>
+</section>

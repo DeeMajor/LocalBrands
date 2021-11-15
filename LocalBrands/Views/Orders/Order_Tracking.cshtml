@@ -1,0 +1,380 @@
+﻿@model IEnumerable<LocalBrands.Models.Order_Tracking>
+
+@{ ViewBag.Title = "Order Tracking";    }
+<style>
+    @*@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');*@
+
+body {
+    background-color: #eeeeee;
+    font-family: 'Open Sans', serif
+}
+
+.container {
+    margin-top: 50px;
+    margin-bottom: 50px
+}
+
+.card {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 0.10rem
+}
+
+.card-header:first-child {
+    border-radius: calc(0.37rem - 1px) calc(0.37rem - 1px) 0 0
+}
+
+.card-header {
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 0;
+    background-color: #fff;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1)
+}
+
+.track {
+    position: relative;
+    background-color: #ddd;
+    height: 7px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin-bottom: 60px;
+    margin-top: 50px
+}
+
+.track .step {
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    width: 25%;
+    margin-top: -18px;
+    text-align: center;
+    position: relative
+}
+
+.track .step.active:before {
+    background: #FF5722
+}
+
+.track .step::before {
+    height: 7px;
+    position: absolute;
+    content: "";
+    width: 100%;
+    left: 0;
+    top: 18px
+}
+
+.track .step.active .icon {
+    background: #ee5435;
+    color: #fff
+}
+
+.track .icon {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    position: relative;
+    border-radius: 100%;
+    background: #ddd
+}
+
+.track .step.active .text {
+    font-weight: 400;
+    color: #000
+}
+
+.track .text {
+    display: block;
+    margin-top: 7px
+}
+
+.itemside {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%
+}
+
+.itemside .aside {
+    position: relative;
+    -ms-flex-negative: 0;
+    flex-shrink: 0
+}
+
+.img-sm {
+    width: 80px;
+    height: 80px;
+    padding: 7px
+}
+
+ul.row,
+ul.row-sm {
+    list-style: none;
+    padding: 0
+}
+
+.itemside .info {
+    padding-left: 15px;
+    padding-right: 7px
+}
+
+.itemside .title {
+    display: block;
+    margin-bottom: 5px;
+    color: #212529
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 1rem
+}
+
+.btn-warning {
+    color: #ffffff;
+    background-color: #ee5435;
+    border-color: #ee5435;
+    border-radius: 1px
+}
+
+.btn-warning:hover {
+    color: #ffffff;
+    background-color: #ff2b00;
+    border-color: #ff2b00;
+    border-radius: 1px
+}
+</style>
+<div class="container">
+    <article class="card">
+        <header class="card-header"> My Orders / Tracking </header>
+        <div class="card-body">
+            <h6>Order ID: OD45345345435</h6>
+            <article class="card">
+             
+            </article>
+            <div class="track">
+                @foreach (var item in Model)
+                {
+                    if (item.status != "Complete")
+                    {
+                        if (item.status == "Order Confirmed" || item.status == "Order Shipped"|| item.status == "Delivered")
+                        {
+                            <div class="step active"> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">Order confirmed</span> </div>
+                        }else{
+                            <div class="step "> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">Order confirmed</span> </div>
+                        }
+                        if (item.status == "Shipped" || item.status == "Delivered")
+                        {
+                            <div class="step active"> <span class="icon"> <i class="fa fa-user"></i> </span> <span class="text"> Picked by courier</span> </div>
+                        }else{
+                            <div class="step "> <span class="icon"> <i class="fa fa-user"></i> </span> <span class="text"> Picked by courier</span> </div>
+                        }
+                        if (item.status == "Delivered" )
+                        {
+                            <div class="step active"> <span class="icon"> <i class="fa fa-user"></i> </span> <span class="text"> Delivered</span> </div>
+                        }else{
+                            <div class="step "> <span class="icon"> <i class="fa fa-user"></i> </span> <span class="text"> </span> Delivered</div>
+                        }
+                    }
+                }
+
+              
+            </div>
+            <hr>
+ 
+            <hr> <a href="#" class="btn btn-warning" data-abc="true"> <i class="fa fa-chevron-left"></i> Back to orders</a>
+        </div>
+    </article>
+</div>
+@*<style type="text/css">
+
+    .stepwizard-step p {
+        margin-top: 10px;
+    }
+
+    .stepwizard-row {
+        display: table-row;
+    }
+
+    .stepwizard {
+        display: table;
+        width: 100%;
+        position: relative;
+    }
+
+    .stepwizard-step button[disabled] {
+        opacity: 1 !important;
+        filter: alpha(opacity=100) !important;
+    }
+
+    .stepwizard-row:before {
+        top: 14px;
+        bottom: 0;
+        position: absolute;
+        content: " ";
+        width: 100%;
+        height: 1px;
+        background-color: #ccc;
+        z-order: 0;
+
+    }
+
+    .stepwizard-step {
+        display: table-cell;
+        text-align: center;
+        position: relative;
+    }
+
+    .btn-circle {
+      width: 30px;
+      height: 30px;
+      text-align: center;
+      padding: 6px 0;
+      font-size: 12px;
+      line-height: 1.428571429;
+      border-radius: 15px;
+    }
+    </style>
+    <h2 class="title text-center">@ViewBag.Title</h2>
+
+    <div class="row">
+        <div>
+            <table class="table">
+                <tr >
+                    <th>Order ID</th>
+                    <th>
+                        @{
+                            var order = (Shopping.Order)ViewBag.Order;
+                        }
+                        @order.Order_ID
+                    </th>
+                </tr>
+                <tr>
+                    <th>Date</th>
+                    <td><i class="fa fa-calendar"></i> @order.date_created.ToLongDateString()  <i class="fa fa-clock-o"></i> @order.date_created.ToLongTimeString()</td>
+                </tr>
+                <tr>
+                    <th>Delivered By</th>
+                    <td>
+
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="stepwizard">
+            <div class="stepwizard-row">
+                <div class="stepwizard-step">
+                    @if (order.status.ToLower().Contains("Awaiting Payment".ToLower()))
+                    {
+                        <button type="button" class="btn btn-primary btn-circle">1</button>
+                    }
+                    else
+                    {
+                        <button type="button" class="btn btn-default btn-circle">1</button>
+                    }
+                    <p>Awaiting Payment</p>
+                </div>
+                <div class="stepwizard-step">
+                    @if (order.status.ToLower().Contains("In-Store".ToLower()))
+                    {
+                        <button type="button" class="btn btn-primary btn-circle">2</button>
+                    }
+                    else
+                    {
+                        <button type="button" class="btn btn-default btn-circle">2</button>
+                    }
+                <p>In-Store</p>
+                </div>
+                <div class="stepwizard-step">
+                    @if (order.status.ToLower().Contains("With courier".ToLower()))
+                    {
+                        <button type="button" class="btn btn-primary btn-circle">3</button>
+                    }
+                    else
+                    {
+                        <button type="button" class="btn btn-default btn-circle">3</button>
+                    }
+                    <p>With courier</p>
+                </div>
+                <div class="stepwizard-step">
+                    @if (order.status.ToLower().Contains("Scheduled for delivery".ToLower()))
+                    {
+                        <button type="button" class="btn btn-primary btn-circle">4</button>
+                    }
+                    else
+                    {
+                        <button type="button" class="btn btn-default btn-circle">4</button>
+                    }
+                    <p>Scheduled for delivery</p>
+                </div>
+                <div class="stepwizard-step">
+                    @if (order.status.ToLower().Contains("En route for delivery".ToLower()))
+                    {
+                        <button type="button" class="btn btn-primary btn-circle">5</button>
+                    }
+                    else
+                    {
+                        <button type="button" class="btn btn-default btn-circle">5</button>
+                    }
+                    <p>En route for delivery</p>
+                </div>
+                <div class="stepwizard-step">
+                    @if (order.status.ToLower().Equals("Delivered".ToLower()))
+                    {
+                        <button type="button" class="btn btn-primary btn-circle">6</button>
+                    }
+                    else
+                    {
+                        <button type="button" class="btn btn-default btn-circle">6</button>
+                    }
+                    <p>Delivered</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <p></p>
+        <h2 class="title text-center">@ViewBag.Title Report</h2>
+        <table class="table">
+            <tr class="table-header-row">
+                <th>Date</th>
+                <th>Time</th>
+                <th>Status</th>
+                <th>Recipient</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                       @item.date.ToLongDateString()
+                    </td>
+                    <td>
+                       @item.date.ToLongTimeString()
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.status)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Recipient)
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>*@
