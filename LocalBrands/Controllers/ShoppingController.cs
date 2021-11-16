@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using System.Text;
 using System.Net.Mail;
 using System.Net;
+using System.Data.Entity;
 
 namespace LocalBrands.Controllers
 {
@@ -48,7 +49,7 @@ namespace LocalBrands.Controllers
             }
             else if (User.IsInRole("Driver"))
             {
-                return RedirectToAction("Dashboard", "Driver");
+                return RedirectToAction("Dashboard", "Drivers");
             }
             var items_results = new List<Item>();
             try
@@ -244,7 +245,9 @@ namespace LocalBrands.Controllers
                 {
                     smtp.Send(mess);
                 }
-
+                order.status = "Order Confirmed";
+                db.Entry(order).State = EntityState.Modified;
+                db.SaveChanges();
                 if (affiliate_Service.GetAffiliateJoiners().FirstOrDefault(x => x.New_Customer_Email == order.Email) != null)
                 { /* deposit benefits */
                     affiliate_Service.PayAffiliates(order.Email, (decimal)order_Service.GetOrderTotal(order.Order_ID));

@@ -1,8 +1,162 @@
 ﻿@model LocalBrands.Models.OrderDetailModel
 
-@{ ViewBag.Title = "Order Details"; }
+@{ ViewBag.Title = "Order Details";
+    Layout = "~/Views/Shared/_Admin.cshtml";
 
+}
+<style>
+    body {
+        background-color: #eee
+    }
+
+    .date {
+        font-size: 11px
+    }
+
+    .divider {
+        height: 0px !important;
+        background-color: blue
+    }
+
+    .track-line {
+        height: 2px !important;
+        background-color: green
+    }
+
+    .dot {
+        height: 10px;
+        width: 10px;
+        margin-left: 3px;
+        margin-right: 3px;
+        margin-top: 0px;
+        background-color: green;
+        border-radius: 50%;
+        display: inline-block
+    }
+
+    .big-dot {
+        height: 25px;
+        width: 25px;
+        margin-left: 0px;
+        margin-right: 0px;
+        margin-top: 0px;
+        background-color: green;
+        border-radius: 50%;
+        display: inline-block
+    }
+
+        .big-dot i {
+            font-size: 12px
+        }
+</style>
 <h2 class="title text-center">@ViewBag.Title</h2>
+
+@if (User.IsInRole("Customer"))
+{
+
+
+
+<h3 class="card-title card-padding pb-0" style="text-align: center; margin-bottom: 50px; margin-top: 50px;">Order tracking</h3><div class="container mt-5">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="bg-white p-2 border rounded px-3">
+                    <div class="d-flex flex-row justify-content-between align-items-center order">
+                        @if (Model.order.status=="Delivered")
+                        {
+                            <div class="d-flex flex-column order-details"><span>Your order has been delivered</span><span class="date">@Model.delivery.Date_DElivereed</span></div>
+                        }
+
+                        <div class="tracking-details"><button class="btn btn-outline-primary btn-sm" type="button">Track order details</button></div>
+                    </div>
+                    <hr class="divider mb-4">
+                    <div class="d-flex flex-row justify-content-between align-items-center align-content-center">
+                        <span class="dot"></span>
+                        @if (Model.order.status == "Order Confirmed")
+                        {
+
+                            <hr class="flex-fill track-line"><span class="d-flex justify-content-center align-items-center big-dot dot"><i class="fa fa-check text-white"></i></span>
+
+
+                        }
+                        else
+                        {
+                            <hr class="flex-fill track-line"><span class="dot"></span>
+
+                        }
+                        @if (Model.order.status == "Assigned To Driver")
+                        {
+
+                            <hr class="flex-fill track-line"><span class="d-flex justify-content-center align-items-center big-dot dot"><i class="fa fa-check text-white"></i></span>
+
+
+                        }
+                        else
+                        {
+                            <hr class="flex-fill track-line"><span class="dot"></span>
+
+                        }
+                        @if (Model.order.status == "Delivered")
+                        {
+
+                            <hr class="flex-fill track-line"><span class="d-flex justify-content-center align-items-center big-dot dot"><i class="fa fa-check text-white"></i></span>
+
+
+                        }
+                        else
+                        {
+                            <hr class="flex-fill track-line"><span class="dot"></span>
+
+                        }
+                        </div>
+                    <div class="d-flex flex-row justify-content-between align-items-center">
+                        @if (Model.order.status == "Order Confirmed" || Model.order.status == "Dispatched" || Model.order.status == "Delivered")
+                        {
+
+                            <div class="d-flex flex-column align-items-start"><span>@Model.order.date_created</span><span>Order placed</span></div>
+
+                        }
+                        else
+                        {
+                            <div class="d-flex flex-column justify-content-center"><span></span></div>
+
+                        }
+                        @if (Model.order.status == "Dispatched"|| Model.order.status == "Delivered")
+                        {
+
+                            <div class="d-flex flex-column justify-content-center"><span>@Model.delivery.Scheduled_Date</span><span>Order Out for Delivery</span></div>
+
+
+                        }
+                        else
+                        {
+                            <div class="d-flex flex-column justify-content-center"><span></span></div>
+
+                        }
+                        @if (Model.order.status == "Delivered")
+                        {
+
+                            <div class="d-flex flex-column justify-content-center"><span>@Model.delivery.Date_DElivereed</span><span>Delivered</span></div>
+
+
+                        }
+                        else
+                        {
+                            <div class="d-flex flex-column justify-content-center"><span></span></div>
+
+
+
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+<br />
+<br />
+
 
 <div class="row">
     <div class="col-md-5">
@@ -25,10 +179,10 @@
                 <td>
                     @if (Model.order.shipped)
                     {
-        <i class="fa fa-check"></i> }
+                        <i class="fa fa-check"></i> }
                     else
                     {
-        <i class="fa fa-ellipsis-h"></i>}
+                        <i class="fa fa-ellipsis-h"></i>}
                 </td>
             </tr>
             <tr>
@@ -43,25 +197,27 @@
             <tr>
                 @if (Model.shipping_method == "collect")
                 {
-            <td>
-                <a href="@Url.Action("Order_Tracking","Orders",new {id = Model.order.Order_ID })" class="btn btn-primary">
-                    Track Order
-                </a>
-            </td>
-                            if (!User.IsInRole("Customer"))
+                    <td>
+                        <a href="@Url.Action("Order_Tracking","Orders",new {id = Model.order.Order_ID })" class="btn btn-primary">
+                            Track Order
+                        </a>
+                    </td>
+                    if (!User.IsInRole("Customer"))
+                    {
+                        if (Model.order.status != "Delivered")
+                        {
+                            if (Model.order.status != "With courier" && Model.order.status == "Awaiting Payment" || Model.order.status == "In-Store")
                             {
-                                if (Model.order.status != "Delivered")
-                                {
-                                    if (Model.order.status != "With courier" && Model.order.status == "Awaiting Payment" || Model.order.status == "In-Store")
-                                    {
 
-            <td>
-                <a href="@Url.Action("Mark_As_Packed","Orders",new {id = Model.order.Order_ID })" class="btn btn-primary">
-                    Mark as Packed
-                </a>
-            </td>}
-                                }
-                            }}
+                                <td>
+                                    <a href="@Url.Action("Mark_As_Packed","Orders",new {id = Model.order.Order_ID })" class="btn btn-primary">
+                                        Mark as Packed
+                                    </a>
+                                </td>
+                            }
+                        }
+                    }
+                }
 
             </tr>
         </table>
@@ -71,56 +227,56 @@
 
         @if (Model.shipping_method == "Standard delivery")
         {
-<h4>Receipt by Standard Delivery</h4>
-                <table class="table">
-                    <tr>
-                        <th>@Html.DisplayNameFor(x => x.address.street_number)</th>
-                        <td>
-                            @Html.DisplayFor(x => x.address.street_number)
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>@Html.DisplayNameFor(x => x.address.street_name)</th>
-                        <td>
-                            @Html.DisplayFor(x => x.address.street_name)
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>@Html.DisplayNameFor(x => x.address.City)</th>
-                        <td>
-                            @Html.DisplayFor(x => x.address.City)
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>@Html.DisplayNameFor(x => x.address.State)</th>
-                        <td>
-                            @Html.DisplayFor(x => x.address.State)
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>@Html.DisplayNameFor(x => x.address.ZipCode)</th>
-                        <td>
-                            @Html.DisplayFor(x => x.address.ZipCode)
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>@Html.DisplayNameFor(x => x.address.Country)</th>
-                        <td>
-                            @Html.DisplayFor(x => x.address.Country)
-                        </td>
-                    </tr>
-                </table> }
-                            else
-                            {
-                <hr />
-                                <p>
-                                    Collection at our warehouse.
-                                    <br />
-                                    <i class="fa fa-map-marker"></i>  21 May St, Durban, 4001
-                                    <br />
-                                    <i class="fa fa-clock-o"></i>  8:30 am - 17:00 working hours
-                                    <br />
-                                </p>}
+            <h4>Receipt by Standard Delivery</h4>
+            <table class="table">
+                <tr>
+                    <th>@Html.DisplayNameFor(x => x.address.street_number)</th>
+                    <td>
+                        @Html.DisplayFor(x => x.address.street_number)
+                    </td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(x => x.address.street_name)</th>
+                    <td>
+                        @Html.DisplayFor(x => x.address.street_name)
+                    </td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(x => x.address.City)</th>
+                    <td>
+                        @Html.DisplayFor(x => x.address.City)
+                    </td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(x => x.address.State)</th>
+                    <td>
+                        @Html.DisplayFor(x => x.address.State)
+                    </td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(x => x.address.ZipCode)</th>
+                    <td>
+                        @Html.DisplayFor(x => x.address.ZipCode)
+                    </td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(x => x.address.Country)</th>
+                    <td>
+                        @Html.DisplayFor(x => x.address.Country)
+                    </td>
+                </tr>
+            </table> }
+        else
+        {
+            <hr />
+            <p>
+                Collection at our warehouse.
+                <br />
+                <i class="fa fa-map-marker"></i>  21 May St, Durban, 4001
+                <br />
+                <i class="fa fa-clock-o"></i>  8:30 am - 17:00 working hours
+                <br />
+            </p>}
     </div>
 </div>
 <div class="row">
@@ -144,44 +300,60 @@
 
         @foreach (var item in Model.order_items)
         {
-<tr>
-    <th>
-        @Html.DisplayFor(modelItem => item.Item.Name)
-    </th>
+            <tr>
+                <th>
+                    @Html.DisplayFor(modelItem => item.Item.Name)
+                </th>
 
-    <th>
-        @Html.DisplayFor(modelItem => item.quantity)
-    </th>
-    <th>
-        @Html.DisplayFor(modelItem => item.price)
-    </th>
-    <th>
-        @if (Model.order.status == "Delivered")
-        {
-<a href="@Url.Action("Log_New","Exchange_n_Returns", new { id= Model.order.Order_ID,item_ID =item.item_id })" class="btn btn-dark mt-auto">
-    Return Item
-</a>}
-    </th>
-</tr>}
+                <th>
+                    @Html.DisplayFor(modelItem => item.quantity)
+                </th>
+                <th>
+                    @Html.DisplayFor(modelItem => item.price)
+                </th>
+                <th>
+                    @if (Model.order.status == "Delivered")
+                    {
+                        <a href="@Url.Action("Log_New","Exchange_n_Returns", new { id= Model.order.Order_ID,item_ID =item.item_id })" class="btn btn-dark mt-auto">
+                            Return Item
+                        </a>}
+                </th>
+            </tr>
+        }
         <tr>
             <td></td>
             <td></td>
             <th>@Html.DisplayFor(x => x.order_total)</th>
         </tr>
     </table>
+
+    <div class="row text-center">
+        @if (User.IsInRole("Driver"))
+        {
+            <a class="btn btn-dark mt-auto" href="@Url.Action("Deliver", "Driver")">
+                <i class="fa fa-angle-left"></i>
+                Deliver
+            </a>}
+
+    </div>
+
     <div class="row text-center">
         @if (User.IsInRole("Customer"))
         {
-<a class="btn btn-dark mt-auto" href="@Url.Action("Order_History", "Orders")">
-    <i class="fa fa-angle-left"></i>
-    Back to List
-</a> }
-            else
-            {
-<a class="btn btn-dark mt-auto" href="@Url.Action("Customer_Orders", "Orders")">
-    <i class="fa fa-angle-left"></i>
-    Back to List
-</a>}
+            <a class="btn btn-dark mt-auto" href="@Url.Action("Order_History", "Orders")">
+                <i class="fa fa-angle-left"></i>
+                Back to List
+            </a> }
+        else
+        {
+            <a class="btn btn-dark mt-auto" href="javascript:history.back()">
+                <i class="fa fa-angle-left"></i>
+                Back
+            </a>}
     </div>
+
+
+
+
 </div>
 

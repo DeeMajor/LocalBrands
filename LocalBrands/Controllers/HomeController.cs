@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LocalBrands.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,14 +13,14 @@ namespace LocalBrands.Controllers
         {
             if (User.IsInRole("Employee"))
             {
-                return RedirectToAction("Dashboard", "Admin");
+                return RedirectToAction("Dashboard", "BrandOwners");
             }
             else if(User.IsInRole("Admin"))
             {
-                return RedirectToAction("Dashboard", "BrandOwners");
+                return RedirectToAction("Dashboard", "Admin");
             }else if (User.IsInRole("Driver"))
             {
-                return RedirectToAction("Dashboard", "Driver");
+                return RedirectToAction("Dashboard", "Drivers");
             }
             else 
             {
@@ -27,7 +28,7 @@ namespace LocalBrands.Controllers
             }
           
         }
-
+  
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

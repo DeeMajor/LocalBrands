@@ -19,16 +19,25 @@ namespace LocalBrands.Controllers
             this.order_Service = new Order_Service();
         }
         // GET: Drivers
-        public ActionResult Index()
+        public ActionResult Dashboard()
         {
             
             DriverViewModel driverViewModel = new DriverViewModel();
-            var driverId = User.Identity.GetUserId();
-            var AssignedOrders = db.Orders.ToList().Where(x => x.Driver_ID == driverId);
-            var ReturnItems = db.Order_Items.Where(x => x.Return == true && x.Order.Driver_ID == driverId);
+            var UserId = User.Identity.GetUserName();
+            var AssignedOrders = db.Orders.Where(x => x.Driver.Email == UserId).ToList();
 
-            driverViewModel.orders = AssignedOrders.ToList();
-            driverViewModel.ReturningiItems.ToList();
+            if (db.Order_Items != null)
+            {
+                var ReturnItems = db.Order_Items.Where(x => x.Return == true && x.Order.Driver.Email == UserId).ToList();
+                driverViewModel.ReturningiItems = ReturnItems ;
+            }
+            
+
+                driverViewModel.orders = AssignedOrders.ToList();
+        
+
+               
+            
 
             return View(driverViewModel);
         }
@@ -61,10 +70,13 @@ namespace LocalBrands.Controllers
         public ActionResult RenderOrders()
         {
             DriverViewModel driverViewModel = new DriverViewModel();
-            var driverId = User.Identity.GetUserId();
-            var AssignedOrders = db.Orders.ToList().Where(x => x.Driver_ID == driverId);
+            var UserId = User.Identity.GetUserName();
+            var AssignedOrders = db.Orders.Where(x => x.Driver.Email == UserId).ToList();
+
+        
 
             driverViewModel.orders = AssignedOrders.ToList();
+
             return PartialView("_Orders", driverViewModel);
         }
         [ChildActionOnly]

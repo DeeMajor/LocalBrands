@@ -13,158 +13,161 @@
     </div>
     <br />
     <br />
+    @if (Model == null)
+    {
+        <h3>There are no orders assigned to you yet</h3>
+    }
+    else
+    {
+        <!-- Content Row -->
+        <div class="row">
 
-    <!-- Content Row -->
-    <div class="row">
-
-        <!-- Earnings (Monthly) Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-success shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                Incoming Orders
-                            </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.orders.Count()</div>
-                            <a class="btn btn-success btn-circle btn-sm" onclick="myFunction()">
-                                <i class="fa fa-eye"></i>
-                            </a>
-                        </div>
-                        <div class="col-auto">
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Earnings (Monthly) Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                Returning items
-                            </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.ReturningiItems.Count()</div>
-                            <a href="#" class="btn btn-success btn-circle btn-sm" onclick="myFunction2()">
-                                <i class="fa fa-eye"></i>
-                            </a>
-                        </div>
-                        <div class="col-auto">
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Pending Requests Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-success shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                Completed Orders
-                            </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.orders.Where(x=>x.status=="Completed").Count()</div>
-                            <a href="#" class="btn btn-success btn-circle btn-sm" onclick="myFunction3()">
-                                <i class="fa fa-eye"></i>
-                            </a>
-                            <span>
-                                <a href="#" class="btn btn-primary btn-circle btn-sm" onclick="myFunction7()">
-                                    <i class="fa fa-plus-circle"></i>
+            <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card border-left-success shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                    Incoming Orders
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.orders.Count()</div>
+                                <a class="btn btn-success btn-circle btn-sm" onclick="myFunction()">
+                                    <i class="fa fa-eye"></i>
                                 </a>
-                            </span>
-                        </div>
-                        <div class="col-auto">
+                            </div>
+                            <div class="col-auto">
 
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-    </div><!-- Content Row -->
-    <div class="row" style="display:none" id="items">
+            <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    Returning items
+                                </div>
 
-        @{
-            if (Model.orders.Count() == 0)
-            {
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.ReturningiItems.Count()</div>
+                                <a href="#" class="btn btn-success btn-circle btn-sm" onclick="myFunction2()">
+                                    <i class="fa fa-eye"></i>
+                                </a>
+                            </div>
+                            <div class="col-auto">
 
-                <h5 class=" text-gray-800" style="text-align:center; margin-top:50px">There are no Incoming Orders</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-            }
-            else
-            {
-                Html.RenderAction("RenderOrders", "Drivers");
-            }
+            <!-- Pending Requests Card Example -->
+            <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card border-left-success shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                    Completed Orders
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.orders.Where(x => x.status == "Completed").Count()</div>
+                                <a href="#" class="btn btn-success btn-circle btn-sm" onclick="myFunction3()">
+                                    <i class="fa fa-eye"></i>
+                                </a>
+                                
+                            </div>
+                            <div class="col-auto">
 
-        }
-    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    <div class="row" style="display:none" id="categories">
-        @{
-
-            if (Model.ReturningiItems.Count() == 0)
-            {
-                <h5 class=" text-gray-800" style="text-align:center; margin-top:50px">There are no Returning Items</h5>
-            }
-            else
-            {
-                Html.RenderAction("RenderReturnItems", "Drivers");
-            }
-
-        }
-    </div>
-    <div class="row" style="display:none" id="departments">
-        @{
-            if (Model.orders.Where(x => x.status == "Completed").Count() == 0)
-            {
-                <h5 class=" text-gray-800" style="text-align:center; margin-top:50px">There are no Completed Orders</h5>
-            }
-            else
-            {
-                Html.RenderAction("RenderCompletedOrders", "Drivers");
-            }
-
-        }
-    </div>
-    @*<div class="row" style="display:none" id="returned">
+        </div><!-- Content Row -->
+        <div class="row" style="display:none" id="items">
 
             @{
-                if (Model.NomberOFReturned == 0)
+                if (Model.orders.Count() == 0)
                 {
-                    <h5 class=" text-gray-800" style="text-align:center; margin-top:50px">There are no Returned Items</h5>
+
+                    <h5 class=" text-gray-800" style="text-align:center; margin-top:50px">There are no Incoming Orders</h5>
+
                 }
                 else
                 {
-                    Html.RenderAction("RenderReturned", "BrandOwners");
+                    Html.RenderAction("RenderOrders", "Drivers");
                 }
+
             }
-        </div>*@
+        </div>
 
-    <div class="row" style="display:none" id="CreateDepartment">
-        @{
-            Html.RenderAction("RenderCreateDepartment", "BrandOwners");
+        <div class="row" style="display:none" id="categories">
+            @{
 
-        }
-    </div>
-    <div class="row" style="display:none" id="CreateCategory">
-        @{
-            Html.RenderAction("RenderCreateCategory", "BrandOwners");
+                if (Model.ReturningiItems.Count() == 0)
+                {
+                    <h5 class=" text-gray-800" style="text-align:center; margin-top:50px">There are no Returning Items</h5>
+                }
+                else
+                {
+                    Html.RenderAction("RenderReturnItems", "Drivers");
+                }
 
-        }
-    </div>
-    <div class="row" style="display:none" id="CreateItems">
-        @{
-            Html.RenderAction("RenderCreateItem", "BrandOwners");
+            }
+        </div>
+        <div class="row" style="display:none" id="departments">
+            @{
+                if (Model.orders.Where(x => x.status == "Completed").Count() == 0)
+                {
+                    <h5 class=" text-gray-800" style="text-align:center; margin-top:50px">There are no Completed Orders</h5>
+                }
+                else
+                {
+                    Html.RenderAction("RenderCompletedOrders", "Drivers");
+                }
 
-        }
-    </div>
+            }
+        </div>
+        @*<div class="row" style="display:none" id="returned">
+
+                @{
+                    if (Model.NomberOFReturned == 0)
+                    {
+                        <h5 class=" text-gray-800" style="text-align:center; margin-top:50px">There are no Returned Items</h5>
+                    }
+                    else
+                    {
+                        Html.RenderAction("RenderReturned", "BrandOwners");
+                    }
+                }
+            </div>*@
+
+        <div class="row" style="display:none" id="CreateDepartment">
+            @{
+                Html.RenderAction("RenderCreateDepartment", "BrandOwners");
+
+            }
+        </div>
+        <div class="row" style="display:none" id="CreateCategory">
+            @{
+                Html.RenderAction("RenderCreateCategory", "BrandOwners");
+
+            }
+        </div>
+        <div class="row" style="display:none" id="CreateItems">
+            @{
+                Html.RenderAction("RenderCreateItem", "BrandOwners");
+
+            }
+        </div>
+    }
+
 </div>
 <script>
     $(document).ready(function () {
@@ -173,9 +176,9 @@
     });
     function myFunction() {
 
-        $("#departments").show();
+        $("#departments").hide();
         $("#categories").hide();
-        $("#items").hide();
+        $("#items").show();
         $("#returned").hide();
         $("#CreateDepartment").hide();
         $("#CreateCategory").hide();
@@ -193,9 +196,9 @@
     }
     function myFunction3() {
 
-        $("#departments").hide();
+        $("#departments").show();
         $("#categories").hide();
-        $("#items").show();
+        $("#items").hide();
         $("#returned").hide();
         $("#CreateDepartment").hide();
         $("#CreateCategory").hide();

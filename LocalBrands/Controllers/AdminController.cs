@@ -19,6 +19,23 @@ namespace LocalBrands.Controllers
         {
             return View();
         }
+        public ActionResult DriverAssign(string id, string id2)
+        {
+
+            if (id != null && id2 != null)
+            {
+                Driver driver = db.Drivers.Find(id);
+                Order order = db.Orders.Find(id2);
+
+                order.Driver_ID = driver.DriverID;
+                driver.Busy = true;
+                db.Entry(order).State = EntityState.Modified;
+                db.Entry(driver).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("Dashboard");
+        }
         public ActionResult Accept(int id)
         {
             Order_Item orderItem = db.Order_Items.Find(id);

@@ -2,61 +2,72 @@
 @model IEnumerable<LocalBrands.Models.BrandOwner>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Brand Owners";
 }
 
-<h2>Index</h2>
+<h2 class="title text-center">@ViewBag.Title</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.BrandOwnerName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BrandOwnerSurname)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BrandOwnerEmail)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ContactNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Address)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-        <th></th>
-    </tr>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary" style="text-align:center;">Brand Owners</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr lass="table-header-row">
+                        <th>
+                            @Html.DisplayNameFor(model => model.BrandOwnerName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.BrandOwnerSurname)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.BrandOwnerEmail)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ContactNumber)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Address)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Status)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.BrandOwnerName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BrandOwnerSurname)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BrandOwnerEmail)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ContactNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-      
-        </tr>
-    }
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.BrandOwnerName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.BrandOwnerSurname)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.BrandOwnerEmail)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ContactNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Address)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                    </tr>}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
-</table>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

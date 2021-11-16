@@ -10,6 +10,7 @@
                     <tr>
                         <th>Order Number</th>
                         <th>Recipient</th>
+                        <th>Address</th>
                         <th></th>
 
                     </tr>
@@ -21,7 +22,8 @@
                         <tr>
                             <td> @item.Order_ID</td>
                             <td> @item.Customer.FirstName @item.Customer.LastName </td>
-                           
+                            <td>  @item.Shipping_Addresses </td>
+
                             <td>
 
                                 <a href="@Url.Action("OrderDetails","Driver", new { id = item.Order_ID})" class="d-none d-sm-inline-block btn btn-sm btn-info shadow-sm">
@@ -33,7 +35,7 @@
                                         Deliver
                                     </a>
                                 }
-                                @if (item.status=="Delivered")
+                                @if (item.status == "Delivered")
                                 {
                                     <a href="@Url.Action("Complete","Driver", new {id = item.Order_ID})" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
                                         Complete
@@ -49,4 +51,5 @@
         </div>
     </div>
 </div>
+
 
