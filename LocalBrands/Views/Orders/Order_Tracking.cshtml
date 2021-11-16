@@ -1,204 +1,280 @@
 ﻿@model IEnumerable<LocalBrands.Models.Order_Tracking>
 
-@{ ViewBag.Title = "Order Tracking";    }
+@{ ViewBag.Title = "Order Tracking";
+    Layout = "~/Views/Shared/_Client.cshtml";
+
+}
 <style>
-    @*@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');*@
+    body {
+        background-color: #eee
+    }
 
-body {
-    background-color: #eeeeee;
-    font-family: 'Open Sans', serif
-}
+    .date {
+        font-size: 11px
+    }
 
-.container {
-    margin-top: 50px;
-    margin-bottom: 50px
-}
+    .divider {
+        height: 0px !important;
+        background-color: blue
+    }
 
-.card {
-    position: relative;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    min-width: 0;
-    word-wrap: break-word;
-    background-color: #fff;
-    background-clip: border-box;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 0.10rem
-}
+    .track-line {
+        height: 2px !important;
+        background-color: green
+    }
 
-.card-header:first-child {
-    border-radius: calc(0.37rem - 1px) calc(0.37rem - 1px) 0 0
-}
+    .dot {
+        height: 10px;
+        width: 10px;
+        margin-left: 3px;
+        margin-right: 3px;
+        margin-top: 0px;
+        background-color: green;
+        border-radius: 50%;
+        display: inline-block
+    }
 
-.card-header {
-    padding: 0.75rem 1.25rem;
-    margin-bottom: 0;
-    background-color: #fff;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1)
-}
+    .big-dot {
+        height: 25px;
+        width: 25px;
+        margin-left: 0px;
+        margin-right: 0px;
+        margin-top: 0px;
+        background-color: green;
+        border-radius: 50%;
+        display: inline-block
+    }
 
-.track {
-    position: relative;
-    background-color: #ddd;
-    height: 7px;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    margin-bottom: 60px;
-    margin-top: 50px
-}
-
-.track .step {
-    -webkit-box-flex: 1;
-    -ms-flex-positive: 1;
-    flex-grow: 1;
-    width: 25%;
-    margin-top: -18px;
-    text-align: center;
-    position: relative
-}
-
-.track .step.active:before {
-    background: #FF5722
-}
-
-.track .step::before {
-    height: 7px;
-    position: absolute;
-    content: "";
-    width: 100%;
-    left: 0;
-    top: 18px
-}
-
-.track .step.active .icon {
-    background: #ee5435;
-    color: #fff
-}
-
-.track .icon {
-    display: inline-block;
-    width: 40px;
-    height: 40px;
-    line-height: 40px;
-    position: relative;
-    border-radius: 100%;
-    background: #ddd
-}
-
-.track .step.active .text {
-    font-weight: 400;
-    color: #000
-}
-
-.track .text {
-    display: block;
-    margin-top: 7px
-}
-
-.itemside {
-    position: relative;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    width: 100%
-}
-
-.itemside .aside {
-    position: relative;
-    -ms-flex-negative: 0;
-    flex-shrink: 0
-}
-
-.img-sm {
-    width: 80px;
-    height: 80px;
-    padding: 7px
-}
-
-ul.row,
-ul.row-sm {
-    list-style: none;
-    padding: 0
-}
-
-.itemside .info {
-    padding-left: 15px;
-    padding-right: 7px
-}
-
-.itemside .title {
-    display: block;
-    margin-bottom: 5px;
-    color: #212529
-}
-
-p {
-    margin-top: 0;
-    margin-bottom: 1rem
-}
-
-.btn-warning {
-    color: #ffffff;
-    background-color: #ee5435;
-    border-color: #ee5435;
-    border-radius: 1px
-}
-
-.btn-warning:hover {
-    color: #ffffff;
-    background-color: #ff2b00;
-    border-color: #ff2b00;
-    border-radius: 1px
-}
+        .big-dot i {
+            font-size: 12px
+        }
 </style>
-<div class="container">
-    <article class="card">
-        <header class="card-header"> My Orders / Tracking </header>
-        <div class="card-body">
-            <h6>Order ID: OD45345345435</h6>
-            <article class="card">
-             
-            </article>
-            <div class="track">
-                @foreach (var item in Model)
-                {
-                    if (item.status != "Complete")
+
+<h3 class="card-title card-padding pb-0" style="text-align: center; margin-bottom: 50px; margin-top: 50px;">My Orders</h3>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="bg-white p-2 border rounded px-3">
+                <div class="d-flex flex-row justify-content-between align-items-center order">
+                    <div class="d-flex flex-column order-details"><span>Your order has been delivered</span><span class="date">by DHFL on 21 Jan, 2020</span></div>
+                    <div class="tracking-details"><button class="btn btn-outline-primary btn-sm" type="button">Track order details</button></div>
+                </div>
+                <hr class="divider mb-4">
+                <div class="d-flex flex-row justify-content-between align-items-center align-content-center">
+                    <span class="dot"></span>
+                    <hr class="flex-fill track-line"><span class="dot"></span>
+                    <hr class="flex-fill track-line"><span class="dot"></span>
+                    <hr class="flex-fill track-line"><span class="dot"></span>
+                    <hr class="flex-fill track-line"><span class="d-flex justify-content-center align-items-center big-dot dot"><i class="fa fa-check text-white"></i></span>
+                </div>
+                <div class="d-flex flex-row justify-content-between align-items-center">
+                    <div class="d-flex flex-column align-items-start"><span>15 Mar</span><span>Order placed</span></div>
+                    <div class="d-flex flex-column justify-content-center"><span>15 Mar</span><span>Order placed</span></div>
+                    <div class="d-flex flex-column justify-content-center align-items-center"><span>15 Mar</span><span>Order Dispatched</span></div>
+                    <div class="d-flex flex-column align-items-center"><span>15 Mar</span><span>Out for delivery</span></div>
+                    <div class="d-flex flex-column align-items-end"><span>15 Mar</span><span>Delivered</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*<style>
+
+    body {
+        background-color: #eeeeee;
+        font-family: 'Open Sans', serif
+    }
+
+    .container {
+        margin-top: 50px;
+        margin-bottom: 50px
+    }
+
+    .card {
+        position: relative;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #fff;
+        background-clip: border-box;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 0.10rem
+    }
+
+    .card-header:first-child {
+        border-radius: calc(0.37rem - 1px) calc(0.37rem - 1px) 0 0
+    }
+
+    .card-header {
+        padding: 0.75rem 1.25rem;
+        margin-bottom: 0;
+        background-color: #fff;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1)
+    }
+
+    .track {
+        position: relative;
+        background-color: #ddd;
+        height: 7px;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        margin-bottom: 60px;
+        margin-top: 50px
+    }
+
+    .track .step {
+        -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+        width: 25%;
+        margin-top: -18px;
+        text-align: center;
+        position: relative
+    }
+
+    .track .step.active:before {
+        background: #FF5722
+    }
+
+    .track .step::before {
+        height: 7px;
+        position: absolute;
+        content: "";
+        width: 100%;
+        left: 0;
+        top: 18px
+    }
+
+    .track .step.active .icon {
+        background: #ee5435;
+        color: #fff
+    }
+
+    .track .icon {
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        position: relative;
+        border-radius: 100%;
+        background: #ddd
+    }
+
+    .track .step.active .text {
+        font-weight: 400;
+        color: #000
+    }
+
+    .track .text {
+        display: block;
+        margin-top: 7px
+    }
+
+    .itemside {
+        position: relative;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        width: 100%
+    }
+
+    .itemside .aside {
+        position: relative;
+        -ms-flex-negative: 0;
+        flex-shrink: 0
+    }
+
+    .img-sm {
+        width: 80px;
+        height: 80px;
+        padding: 7px
+    }
+
+    ul.row,
+    ul.row-sm {
+        list-style: none;
+        padding: 0
+    }
+
+    .itemside .info {
+        padding-left: 15px;
+        padding-right: 7px
+    }
+
+    .itemside .title {
+        display: block;
+        margin-bottom: 5px;
+        color: #212529
+    }
+
+    p {
+        margin-top: 0;
+        margin-bottom: 1rem
+    }
+
+    .btn-warning {
+        color: #ffffff;
+        background-color: #ee5435;
+        border-color: #ee5435;
+        border-radius: 1px
+    }
+
+    .btn-warning:hover {
+        color: #ffffff;
+        background-color: #ff2b00;
+        border-color: #ff2b00;
+        border-radius: 1px
+    }
+    </style>
+    <div class="container">
+        <article class="card">
+            <header class="card-header"> My Orders / Tracking </header>
+            <div class="card-body">
+                <h6>Order ID: OD45345345435</h6>
+                <article class="card">
+
+                </article>
+                <div class="track">
+                    @foreach (var item in Model)
                     {
-                        if (item.status == "Order Confirmed" || item.status == "Order Shipped"|| item.status == "Delivered")
+                        if (item.status != "Complete")
                         {
-                            <div class="step active"> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">Order confirmed</span> </div>
-                        }else{
-                            <div class="step "> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">Order confirmed</span> </div>
-                        }
-                        if (item.status == "Shipped" || item.status == "Delivered")
-                        {
-                            <div class="step active"> <span class="icon"> <i class="fa fa-user"></i> </span> <span class="text"> Picked by courier</span> </div>
-                        }else{
-                            <div class="step "> <span class="icon"> <i class="fa fa-user"></i> </span> <span class="text"> Picked by courier</span> </div>
-                        }
-                        if (item.status == "Delivered" )
-                        {
-                            <div class="step active"> <span class="icon"> <i class="fa fa-user"></i> </span> <span class="text"> Delivered</span> </div>
-                        }else{
-                            <div class="step "> <span class="icon"> <i class="fa fa-user"></i> </span> <span class="text"> </span> Delivered</div>
+                            if (item.status == "Order Confirmed" || item.status == "Order Shipped"|| item.status == "Delivered")
+                            {
+                                <div class="step active"> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">Order confirmed</span> </div>
+                            }else{
+                                <div class="step "> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">Order confirmed</span> </div>
+                            }
+                            if (item.status == "Shipped" || item.status == "Delivered")
+                            {
+                                <div class="step active"> <span class="icon"> <i class="fa fa-user"></i> </span> <span class="text"> Picked by courier</span> </div>
+                            }else{
+                                <div class="step "> <span class="icon"> <i class="fa fa-user"></i> </span> <span class="text"> Picked by courier</span> </div>
+                            }
+                            if (item.status == "Delivered" )
+                            {
+                                <div class="step active"> <span class="icon"> <i class="fa fa-user"></i> </span> <span class="text"> Delivered</span> </div>
+                            }else{
+                                <div class="step "> <span class="icon"> <i class="fa fa-user"></i> </span> <span class="text"> </span> Delivered</div>
+                            }
                         }
                     }
-                }
 
-              
+
+                </div>
+                <hr>
+
+                <hr> <a href="#" class="btn btn-warning" data-abc="true"> <i class="fa fa-chevron-left"></i> Back to orders</a>
             </div>
-            <hr>
- 
-            <hr> <a href="#" class="btn btn-warning" data-abc="true"> <i class="fa fa-chevron-left"></i> Back to orders</a>
-        </div>
-    </article>
-</div>
+        </article>
+    </div>*@
 @*<style type="text/css">
 
     .stepwizard-step p {

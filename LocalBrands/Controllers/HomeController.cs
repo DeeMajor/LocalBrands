@@ -12,7 +12,7 @@ namespace LocalBrands.Controllers
         {
             if (User.IsInRole("Employee"))
             {
-                return RedirectToAction("Dashboard", "BrandOwners");
+                return RedirectToAction("Dashboard", "Admin");
             }
             else if(User.IsInRole("Admin"))
             {

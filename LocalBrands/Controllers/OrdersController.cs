@@ -74,15 +74,16 @@ namespace LocalBrands.Controllers
         }
         public ActionResult Order_Tracking(string id)
         {
-            if (id == null)
-                return RedirectToAction("Bad_Request", "Error");
-            if (order_Service.GetOrder(id) != null)
-            {
-                ViewBag.Order = order_Service.GetOrder(id);
-                return View(order_Service.GetOrderTrackingReport(id));
-            }
-            else
-                return RedirectToAction("Not_Found", "Error");
+            //if (id == null)
+            //    return RedirectToAction("Bad_Request", "Error");
+            //if (order_Service.GetOrder(id) != null)
+            //{
+            //    ViewBag.Order = order_Service.GetOrder(id);
+            //    return View(order_Service.GetOrderTrackingReport(id));
+            //}
+            //else
+            //    return RedirectToAction("Not_Found", "Error");
+            return View();
         }
 
         public ActionResult Mark_As_Packed(string id)

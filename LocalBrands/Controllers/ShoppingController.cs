@@ -38,6 +38,18 @@ namespace LocalBrands.Controllers
 
         public ActionResult Index(int? id)
         {
+            if (User.IsInRole("Employee"))
+            {
+                return RedirectToAction("Dashboard", "BrandOwners");
+            }
+            else if (User.IsInRole("Admin"))
+            {
+                return RedirectToAction("Dashboard", "Admin");
+            }
+            else if (User.IsInRole("Driver"))
+            {
+                return RedirectToAction("Dashboard", "Driver");
+            }
             var items_results = new List<Item>();
             try
             {

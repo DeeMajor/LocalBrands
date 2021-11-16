@@ -8,7 +8,7 @@ namespace LocalBrands.Models
 {
     public class Customer 
     {
-        [Key]
+   
         [Display(Name = "Customer ID")]
         public string CustomerId { get; set; }
 
@@ -20,7 +20,9 @@ namespace LocalBrands.Models
         [Display(Name = "Phone Number")]
         public string phone { get; set; }
 
+        [Key]
         [Display(Name = "Email")]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
         public string Address { get; set; }
 

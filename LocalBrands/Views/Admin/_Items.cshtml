@@ -22,9 +22,9 @@
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td> @Html.DisplayNameFor(model => model.Name)</td>
-                            <td> @Html.DisplayNameFor(model => model.QuantityInStock)</td>
-                            <td>  @Html.DisplayNameFor(model => model.Price)</td>
+                            <td>  @Html.DisplayFor(modelItem => item.Name)</td>
+                            <td> @Html.DisplayFor(modelItem => item.QuantityInStock)</td>
+                            <td>   @Html.DisplayFor(modelItem => item.Price)</td>
                             <td>
                                 <a><img src="data:image/png;base64,@Convert.ToBase64String(item.Picture, 0, item.Picture.Length)" style="width: 40px; height: 40px" alt="" /></a>
                             </td>
