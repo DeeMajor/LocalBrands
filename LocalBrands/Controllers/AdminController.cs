@@ -39,7 +39,7 @@ namespace LocalBrands.Controllers
         public ActionResult Accept(int id)
         {
             Order_Item orderItem = db.Order_Items.Find(id);
-            orderItem.Order.status= "Returned";
+            orderItem.Order.status= "Return";
             db.Entry(orderItem).State = EntityState.Modified;
             db.SaveChanges();
             return View("Index");

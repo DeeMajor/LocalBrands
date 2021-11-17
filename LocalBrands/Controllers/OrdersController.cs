@@ -92,7 +92,7 @@ namespace LocalBrands.Controllers
                 order_Item.ReturnReason = Reason;
                 db.Entry(order_Item).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Return", new { id = order_Item.Order_id });
+                return RedirectToAction("Return_Items", new { id = order_Item.Order_id });
             }
             return View();
         }
@@ -111,21 +111,21 @@ namespace LocalBrands.Controllers
             }
             return View();
         }
-        public ActionResult GetQRCode()
-        {
-            using (MemoryStream ms = new MemoryStream())
-            {
-                QRCodeGenerator qrGenerator = new QRCodeGenerator();
-                QRCodeGenerator.QRCode qrCode = qrGenerator.CreateQrCode(qrcode, QRCodeGenerator.ECCLevel.Q);
-                using (Bitmap bitMap = qrCode.GetGraphic(20))
-                {
-                    bitMap.Save(ms, ImageFormat.Png);
-                    ViewBag.QRCodeImage = "data:image/png;base64," + Convert.ToBase64String(ms.ToArray());
-                }
-            }
+        //public ActionResult GetQRCode()
+        //{
+        //    using (MemoryStream ms = new MemoryStream())
+        //    {
+        //        QRCodeGenerator qrGenerator = new QRCodeGenerator();
+        //        QRCodeGenerator.QRCode qrCode = qrGenerator.CreateQrCode(qrcode, QRCodeGenerator.ECCLevel.Q);
+        //        using (Bitmap bitMap = qrCode.GetGraphic(20))
+        //        {
+        //            bitMap.Save(ms, ImageFormat.Png);
+        //            ViewBag.QRCodeImage = "data:image/png;base64," + Convert.ToBase64String(ms.ToArray());
+        //        }
+        //    }
 
-            return View();
-        }
+        //    return View();
+        //}
         public ActionResult ReturnComplete(string id)
         {
             Order order = db.Orders.Find(id);
