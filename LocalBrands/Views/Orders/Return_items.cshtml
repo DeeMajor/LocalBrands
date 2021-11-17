@@ -1,0 +1,68 @@
+﻿@model IEnumerable<LocalBrands.Models.Order_Item>
+@{
+    ViewBag.Title = "Return_items";
+    Layout = "~/Views/Shared/_Client.cshtml";
+}
+
+<div class="page-wrapper mdc-toolbar-fixed-adjust">
+    <main class="content-wrapper">
+        <div class="mdc-layout-grid">
+            <div class="mdc-layout-grid__inner">
+                <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+                    <div class="mdc-card p-0">
+                        <h6 class="card-title card-padding pb-0" style="text-align: center;">Returning Items</h6>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="text-left">Item ID</th>
+                                        <th>Item Name</th>
+                                        <th>Return Reason</th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        using (Html.BeginForm())
+                                        {
+                                            @Html.AntiForgeryToken()
+                                            <tr>
+                                                <td class="text-left"><input name="OrderItemId" value="@item.Order_Item_id" readonly /></td>
+                                                <td><label>@item.Item.Name</label></td>
+                                                <td>
+                                                    <div class="mdc-text-field mdc-text-field--outlined">
+                                                        <input class="mdc-text-field__input" id="text-field-hero-input" name="Reason">
+
+                                                        <div class="mdc-notched-outline">
+                                                            <div class="mdc-notched-outline__leading"></div>
+                                                            <div class="mdc-notched-outline__notch">
+                                                                <label for="text-field-hero-input" class="mdc-floating-label">Return Reason</label>
+                                                            </div>
+                                                            <div class="mdc-notched-outline__trailing"></div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    @Html.CheckBox("ReturnReason")
+                                                </td>
+                                                <td>
+                                                    <input type="submit" value="Submit" class="mdc-button text-button--success" />
+                                                </td>
+
+
+
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <a class="mdc-button text-button--info" href="@Url.Action("ReturnOrder","Orders")">See Return Order</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>

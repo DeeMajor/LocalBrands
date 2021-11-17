@@ -1,7 +1,8 @@
 ﻿@model LocalBrands.Models.Viewmodels.AdminDashViewModel
 @{
     ViewBag.Title = "Dashboard";
-    Layout = "~/Views/Shared/_Admin.cshtml";
+    Layout = "~/Views/Shared/_Client.cshtml";
+}
 
 }
 
@@ -19,7 +20,7 @@
     <div class="row">
 
         <!-- Earnings (Monthly) Card Example -->
-        <div class="col-xl-4 col-md-6 mb-4">
+        <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-success shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
@@ -41,7 +42,7 @@
         </div>
 
         <!-- Earnings (Monthly) Card Example -->
-        <div class="col-xl-4 col-md-6 mb-4">
+        <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
@@ -63,7 +64,7 @@
         </div>
 
         <!-- Pending Requests Card Example -->
-        <div class="col-xl-4 col-md-6 mb-4">
+        <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-success shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
@@ -76,10 +77,10 @@
                                 <i class="fa fa-eye"></i>
                             </a>
                             @*<span>
-                                <a href="#" class="btn btn-primary btn-circle btn-sm" onclick="myFunction7()">
-                                    <i class="fa fa-plus-circle"></i>
-                                </a>
-                            </span>*@
+                                    <a href="#" class="btn btn-primary btn-circle btn-sm" onclick="myFunction7()">
+                                        <i class="fa fa-plus-circle"></i>
+                                    </a>
+                                </span>*@
                         </div>
                         <div class="col-auto">
 
@@ -89,6 +90,32 @@
             </div>
         </div>
 
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                Return Items
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.Order_Items.Where(x => x.Return == true).Count()</div>
+                            <a href="#" class="btn btn-success btn-circle btn-sm" onclick="myFunction4()">
+                                <i class="fa fa-eye"></i>
+                            </a>
+                            @*<span>
+                                    <a href="#" class="btn btn-primary btn-circle btn-sm" onclick="myFunction7()">
+                                        <i class="fa fa-plus-circle"></i>
+                                    </a>
+                                </span>*@
+                        </div>
+                        <div class="col-auto">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
     <!-- Content Row -->
@@ -137,19 +164,19 @@
 
         }
     </div>
-    @*<div class="row" style="display:none" id="returned">
+    <div class="row" style="display:none" id="returned">
 
-            @{
-                if (Model.NomberOFReturned == 0)
-                {
-                    <h5 class=" text-gray-800" style="text-align:center; margin-top:50px">There are no Returned Items</h5>
-                }
-                else
-                {
-                    Html.RenderAction("RenderReturned", "BrandOwners");
-                }
+        @{
+            if (Model.Order_Items.Where(x => x.Return == true).Count() == 0)
+            {
+                <h5 class=" text-gray-800" style="text-align:center; margin-top:50px">There are no Returned Items</h5>
             }
-        </div>*@
+            else
+            {
+                Html.RenderAction("RenderReturned", "Admin");
+            }
+        }
+    </div>
 
     <div class="row" style="display:none" id="CreateDepartment">
         @{

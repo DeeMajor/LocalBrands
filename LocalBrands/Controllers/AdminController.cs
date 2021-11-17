@@ -85,9 +85,9 @@ namespace LocalBrands.Controllers
         public ActionResult RenderReturned()
         {
             
-            var items = db.Order_Items.ToList();
+            var items = db.Orders.ToList();
 
-            return PartialView("_Departments", items);
+            return PartialView("_Returned", items);
         }
 
         public ActionResult RenderCreateDepartment()

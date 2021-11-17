@@ -65,22 +65,21 @@
                         <td>
                             @if (item.Driver_ID == null)
                             {<ul>
-                                @foreach (var item2 in drivers.Where(x => x.Busy != true))
-                                {
-                                    <li >
-                                        <a href="@Url.Action("DriverAssign", "Admin", new { id = item2.DriverID, id2 = item.Order_ID })">@item2.FirstName</a>
-                                    </li>
-                                }
+                                    @foreach (var item2 in drivers.Where(x => x.Busy != true))
+                                    {
+                    <li>
+                        <a href="@Url.Action("DriverAssign", "Admin", new { id = item2.DriverID, id2 = item.Order_ID })">@item2.FirstName</a>
+                    </li>}
 
-                            </ul>
-                            }
-                            else { 
-                                @item.Driver.FirstName <h6>(Assigned)</h6>
-                            }
+                                </ul> }
+                                                else
+                                                {
+                                @item.Driver.FirstName <h6>(Assigned)</h6>}
                         </td>
                         <td>
                             <a href="@Url.Action("Order_Details","Orders", new { id=item.Order_ID })" rel="tooltip" title="View" class="btn btn-info btn-simple btn-xs"><i class="fa fa-eye"></i></a>
                         </td>
+                       
                     </tr>
                     }
                 </tbody>

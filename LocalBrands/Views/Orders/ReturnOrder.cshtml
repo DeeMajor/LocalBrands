@@ -1,0 +1,109 @@
+﻿@model LocalBrands.Models.Order
+@using LocalBrands.Models
+@{
+    ViewBag.Title = "ReturnOrder";
+    Layout = "~/Views/Shared/_Client.cshtml";
+    ApplicationDbContext db = new ApplicationDbContext();
+    var OrderItems = db.Order_Items.Where(x => x.Return == true && x.Order.Order_ID == Model.Order_ID).ToList();
+}
+
+<div class="page-wrapper mdc-toolbar-fixed-adjust">
+    <main class="content-wrapper">
+        <div class="mdc-layout-grid">
+            <div class="mdc-layout-grid__inner">
+                <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+                    <div class="mdc-card p-0">
+                        <h6 class="card-title card-padding pb-0" style="text-align: center;">My Orders</h6>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="text-left">
+                                            Order ID
+
+                                        </th>
+                                        <th>
+                                            Date
+                                        </th>
+                                        <th>
+                                            Time
+                                        </th>
+                                        <th>
+                                            Customer
+                                        </th>
+                                        <th>
+                                            Status
+                                        </th>
+
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+
+                                    <tr>
+                                        <td class="text-left">@Model.Order_ID</td>
+                                        <td>@Model.date_created.ToLongDateString()</td>
+                                        <td>@Model.date_created.ToLongTimeString()</td>
+                                        <td>
+                                            @Model.Customer.FirstName  @Model.Customer.LastName
+                                        </td>
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => Model.status)
+                                        </td>
+
+
+                                    </tr>
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="mdc-card p-0">
+                        <h6 class="card-title card-padding pb-0" style="text-align: center;">Returning Items</h6>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="text-left">
+                                            Item ID
+
+                                        </th>
+                                        <th>
+                                            Item Name
+                                        </th>
+                                        <th>
+                                            Reason
+                                        </th>
+
+
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in OrderItems)
+                                    {
+
+                                        <tr>
+                                            <td class="text-left">@item.Order_Item_id</td>
+                                            <td>@item.Item.Name</td>
+                                            <td>@item.ReturnReason</td>
+
+
+
+                                        </tr>
+                                    }
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+

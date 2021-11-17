@@ -64,6 +64,11 @@
     <Reference Include="PayFast.AspNet, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\PayFast.AspNet.1.0.4\lib\net46\PayFast.AspNet.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="QRCoder, Version=1.4.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\QRCoder.1.4.1\lib\net40\QRCoder.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -128,6 +133,7 @@
       <Private>True</Private>
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.AspNet.Identity.Core">
@@ -2231,6 +2237,9 @@
     <Content Include="Views\Admin\_Items.cshtml" />
     <Content Include="Views\Admin\_BrandOwners.cshtml" />
     <Content Include="Views\Drivers\_ReturnItems.cshtml" />
+    <Content Include="Views\Orders\Return_items.cshtml" />
+    <Content Include="Views\Orders\ReturnOrder.cshtml" />
+    <Content Include="Views\Admin\RenderReturned.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

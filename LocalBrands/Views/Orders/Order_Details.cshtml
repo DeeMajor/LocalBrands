@@ -66,13 +66,14 @@
                             <div class="d-flex flex-column order-details"><span>Your order has been delivered</span><span class="date">@Model.delivery.Date_DElivereed</span></div>
                         }
 
-                        <div class="tracking-details"><button class="btn btn-outline-primary btn-sm" type="button">Track order details</button></div>
                     </div>
                     <hr class="divider mb-4">
                     <div class="d-flex flex-row justify-content-between align-items-center align-content-center">
                         <span class="dot"></span>
-                        @if (Model.order.status == "Order Confirmed")
+
+                        @if (Model.order.status == "In-Store")
                         {
+
 
                             <hr class="flex-fill track-line"><span class="d-flex justify-content-center align-items-center big-dot dot"><i class="fa fa-check text-white"></i></span>
 
@@ -107,9 +108,9 @@
                             <hr class="flex-fill track-line"><span class="dot"></span>
 
                         }
-                        </div>
+                    </div>
                     <div class="d-flex flex-row justify-content-between align-items-center">
-                        @if (Model.order.status == "Order Confirmed" || Model.order.status == "Dispatched" || Model.order.status == "Delivered")
+                        @if (Model.order.status == "In-Store" || Model.order.status == "Assigned To Driver" || Model.order.status == "Delivered")
                         {
 
                             <div class="d-flex flex-column align-items-start"><span>@Model.order.date_created</span><span>Order placed</span></div>
@@ -120,10 +121,10 @@
                             <div class="d-flex flex-column justify-content-center"><span></span></div>
 
                         }
-                        @if (Model.order.status == "Dispatched"|| Model.order.status == "Delivered")
+                        @if (Model.order.status == "Assigned To Driver" || Model.order.status == "Delivered")
                         {
 
-                            <div class="d-flex flex-column justify-content-center"><span>@Model.delivery.Scheduled_Date</span><span>Order Out for Delivery</span></div>
+                            <div class="d-flex flex-column justify-content-center"><span></span><span>Order Out for Delivery</span></div>
 
 
                         }
@@ -340,9 +341,9 @@
     <div class="row text-center">
         @if (User.IsInRole("Customer"))
         {
-            <a class="btn btn-dark mt-auto" href="@Url.Action("Order_History", "Orders")">
+            <a class="btn btn-dark mt-auto" href="javascript:history.back()">
                 <i class="fa fa-angle-left"></i>
-                Back to List
+                Back
             </a> }
         else
         {

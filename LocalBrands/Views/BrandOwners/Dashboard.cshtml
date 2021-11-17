@@ -1,7 +1,8 @@
 ﻿@model LocalBrands.Models.Viewmodels.BrandOwnerDashboardVM
 @{
     ViewBag.Title = "Dashboard";
-    Layout = "~/Views/Shared/_Admin.cshtml";
+    Layout = "~/Views/Shared/_Client.cshtml";
+}
 }
 
 <div class="container">
@@ -221,7 +222,7 @@
 
     });
     function myFunction() {
-       
+
         $("#departments").show();
         $("#categories").hide();
         $("#items").hide();
