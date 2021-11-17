@@ -2232,7 +2232,6 @@
     <Content Include="Views\Admin\_Items.cshtml" />
     <Content Include="Views\Admin\_BrandOwners.cshtml" />
     <Content Include="Views\Drivers\_ReturnItems.cshtml" />
-    <Content Include="Views\Drivers\Map.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
