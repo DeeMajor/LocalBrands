@@ -1,12 +1,10 @@
-﻿@using Gent_Coders.Services
-
+﻿
+@using Gent_Coders.Services
 @{
-    ViewBag.Title = "Deliver";
-    //Layout = "~/Views/Shared/_Admin.cshtml";
+    var message = TempData["AlertMessage"] ?? string.Empty;
+    //Layout = "~/Views/Shared/GuestLayout.cshtml";
+
 }
-
-
-
 <div class="row">
     @section Scripts {
 
