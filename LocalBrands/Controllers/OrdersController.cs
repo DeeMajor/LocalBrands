@@ -23,7 +23,6 @@ namespace LocalBrands.Controllers
         {
             this.order_Service = new Order_Service();
         }
-
         //Customer orders
         public ActionResult Customer_Orders(string id)
         {
@@ -111,21 +110,39 @@ namespace LocalBrands.Controllers
             }
             return View();
         }
-        public ActionResult GetQRCode()
-        {
-            using (MemoryStream ms = new MemoryStream())
-            {
-                QRCodeGenerator qrGenerator = new QRCodeGenerator();
-                QRCodeGenerator.QRCode qrCode = qrGenerator.CreateQrCode(qrcode, QRCodeGenerator.ECCLevel.Q);
-                using (Bitmap bitMap = qrCode.GetGraphic(20))
-                {
-                    bitMap.Save(ms, ImageFormat.Png);
-                    ViewBag.QRCodeImage = "data:image/png;base64," + Convert.ToBase64String(ms.ToArray());
-                }
-            }
 
-            return View();
+        public ActionResult GetQRCode(string id)
+        {
+            QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(id, QRCodeGenerator.ECCLevel.H);
+            QRCode qrCode = new QRCode(qrCodeData);
+            Bitmap qrCodeImage = qrCode.GetGraphic(5);
+
+            Order order = db.Orders.Find(id);
+            order.QrCodeImage = ImageToByte(qrCodeImage);
+            db.Entry(order).State =  EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Customer_Orders");
         }
+        public static byte[] ImageToByte(System.Drawing.Image img)
+        {
+            ImageConverter converter = new ImageConverter();
+            return (byte[])converter.ConvertTo(img, typeof(byte[]));
+        }
+        //public ActionResult GetQRCode()
+        //{
+        //    using (MemoryStream ms = new MemoryStream())
+        //    {
+        //        QRCodeGenerator qrGenerator = new QRCodeGenerator();
+        //        QRCodeGenerator.QRCode qrCode = qrGenerator.CreateQrCode(qrcode, QRCodeGenerator.ECCLevel.Q);
+        //        using (Bitmap bitMap = qrCode.GetGraphic(20))
+        //        {
+        //            bitMap.Save(ms, ImageFormat.Png);
+        //            ViewBag.QRCodeImage = "data:image/png;base64," + Convert.ToBase64String(ms.ToArray());
+        //        }
+        //    }
+        //    return View();
+        //}
         public ActionResult ReturnComplete(string id)
         {
             Order order = db.Orders.Find(id);

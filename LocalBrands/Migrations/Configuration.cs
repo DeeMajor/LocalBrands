@@ -9,7 +9,7 @@ namespace LocalBrands.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
             ContextKey = "LocalBrands.Models.ApplicationDbContext";
         }
 

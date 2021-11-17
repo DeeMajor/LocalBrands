@@ -192,6 +192,15 @@
                     @Html.DisplayFor(x => x.order.status)
                 </td>
             </tr>
+            <tr>
+                <th>QR Code</th>
+                <td>
+                    @if (Model.order.QrCodeImage != null)
+                    {
+                        <img alt="" src="data:image/png;base64,@Convert.ToBase64String(Model.order.QrCodeImage, 0, Model.order.QrCodeImage.Length)" width="100" height="100" />
+                    }
+                </td>             
+            </tr>
         </table>
 
         <table>
