@@ -170,7 +170,7 @@ namespace LocalBrands
                 roleManager.Create(role);
             }
             Driver dr = context.Drivers.ToList().Find(x => x.Email == "andilebshange@gmail.com");
-            if (cus == null)
+            if (dr == null)
             {
                 Driver newCus = new Driver
                 {
@@ -178,6 +178,58 @@ namespace LocalBrands
                     FirstName = "Sma",
                     LastName = "Dolly",
                     Email = "andilebshange@gmail.com",
+
+                };
+                context.Drivers.Add(newCus);
+                context.SaveChanges();
+
+                var user = new ApplicationUser();
+                user.UserName = newCus.Email;
+                user.Email = newCus.Email;
+                string password = "Password@12";
+
+                var User = userManager.Create(user, password);
+                if (User.Succeeded)
+                    userManager.AddToRole(user.Id, "Driver");
+            }
+            if (!roleManager.RoleExists("Driver"))
+            {
+                var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+                role.Name = "Driver";
+                roleManager.Create(role);
+            }
+            Driver dr2 = context.Drivers.ToList().Find(x => x.Email == "andilebshange2@gmail.com");
+            if (dr2 == null)
+            {
+                Driver newCus = new Driver
+                {
+                    DriverID = Guid.NewGuid().ToString(),
+                    FirstName = "Peter",
+                    LastName = "Parker",
+                    Email = "andilebshange2@gmail.com",
+
+                };
+                context.Drivers.Add(newCus);
+                context.SaveChanges();
+
+                var user = new ApplicationUser();
+                user.UserName = newCus.Email;
+                user.Email = newCus.Email;
+                string password = "Password@12";
+
+                var User = userManager.Create(user, password);
+                if (User.Succeeded)
+                    userManager.AddToRole(user.Id, "Driver");
+            }
+            Driver dr3 = context.Drivers.ToList().Find(x => x.Email == "andilebshange3@gmail.com");
+            if (dr3 == null)
+            {
+                Driver newCus = new Driver
+                {
+                    DriverID = Guid.NewGuid().ToString(),
+                    FirstName = "Percy",
+                    LastName = "Tau",
+                    Email = "andilebshange2@gmail.com",
 
                 };
                 context.Drivers.Add(newCus);

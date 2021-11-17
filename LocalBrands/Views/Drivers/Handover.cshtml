@@ -1,0 +1,10 @@
+﻿@model.LocalBrands.Models.Order
+@{
+    ViewBag.Title = "Handover";
+    Layout = "~/Views/Shared/_Client.cshtml";
+}
+
+<p>@Model.Order_ID</p>
+
+<a class="btn btn-danger mt-4" href="@Url.Action("Handover","Drivers")">Confirm Delivery</a>
+

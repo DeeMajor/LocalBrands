@@ -2241,6 +2241,8 @@
     <Content Include="Views\Orders\Return_items.cshtml" />
     <Content Include="Views\Orders\ReturnOrder.cshtml" />
     <Content Include="Views\Admin\RenderReturned.cshtml" />
+    <Content Include="Views\Drivers\Handover.cshtml" />
+    <Content Include="Views\Drivers\Success.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

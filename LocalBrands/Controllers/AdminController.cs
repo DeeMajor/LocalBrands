@@ -38,11 +38,11 @@ namespace LocalBrands.Controllers
         }
         public ActionResult Accept(int id)
         {
-            Order_Item orderItem = db.Order_Items.Find(id);
-            orderItem.Order.status= "Return";
+            Order orderItem = db.Orders.Find(id);
+            orderItem.status= "Return";
             db.Entry(orderItem).State = EntityState.Modified;
             db.SaveChanges();
-            return View("Index");
+            return RedirectToAction("Dashboard");
         }
 
         public ActionResult Dashboard()
@@ -85,7 +85,7 @@ namespace LocalBrands.Controllers
         public ActionResult RenderReturned()
         {
             
-            var items = db.Orders.ToList();
+            var items = db.Orders.Where(x=>x.status=="Return").ToList();
 
             return PartialView("_Returned", items);
         }

@@ -4,6 +4,7 @@ using LocalBrands.Services;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -47,7 +48,25 @@ namespace LocalBrands.Controllers
 
             return View();
         }
+        []
+        public ActionResult Handover(string id)
+        {
+            Order order = db.Orders.Where(x => x.Order_ID == id).FirstOrDefault();
+        
 
+            return View(order);
+        }
+        [HttpPost]
+        public ActionResult Success(string id)
+        {
+
+            Order order = db.Orders.Where(x => x.Order_ID == id).FirstOrDefault();
+            order.status = "Delivered";
+            db.Entry(order).State = EntityState.Modified;
+            db.SaveChanges();
+
+            return View();
+        }
         public ActionResult OrderItems(string id)
         {
             if (id == null)
