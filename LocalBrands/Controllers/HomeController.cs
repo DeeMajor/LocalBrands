@@ -1,6 +1,8 @@
 ﻿using LocalBrands.Models;
+using QRCoder;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -31,9 +33,21 @@ namespace LocalBrands.Controllers
   
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+
+            QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode("1765915575", QRCodeGenerator.ECCLevel.H);
+            QRCode qrCode = new QRCode(qrCodeData);
+            Bitmap qrCodeImage = qrCode.GetGraphic(5);
+
+            byte[] byteee = ImageToByte(qrCodeImage);
+            ViewBag.Message = byteee;
 
             return View();
+        }
+        public static byte[] ImageToByte(System.Drawing.Image img)
+        {
+            ImageConverter converter = new ImageConverter();
+            return (byte[])converter.ConvertTo(img, typeof(byte[]));
         }
 
         public ActionResult Contact()

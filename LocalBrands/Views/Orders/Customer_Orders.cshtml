@@ -20,7 +20,8 @@
                         <th scope="col">Date</th>
                         <th scope="col">Status</th>
                         <th scope="col"> Driver</th>
-                        @*<th scope="col"> QR Code</th>*@
+                        <th scope="col"> QR Code</th>
+                        <th scope="col"> </th>
                         <th scope="col"> </th>
                     </tr>
                 </thead>
@@ -40,16 +41,23 @@
                         {
                             <td>NA</td>
                         }
-                    @*<td>
+                    <td>
+                        @if (item.QrCodeImage != null)
+                        {
+                            <img alt="" src="data:image/png;base64,@Convert.ToBase64String(item.QrCodeImage, 0, item.QrCodeImage.Length)" width="50" height="50" />
+                        }
+                    </td>
+                    <td>
                         @if (User.IsInRole("Customer") && item.status == "Assigned To Driver")
                         {
-
-                            <div class="main-button">
-                                <a href="@Url.Action("GetQRCode", "Orders", new { id =item.Order_ID } )" class="btn btn-dark mt-auto">Get QR Code</a>
-                            </div>
-
+                            if (item.QrCodeImage == null)
+                            {
+                                <div class="main-button">
+                                    <a href="@Url.Action("GetQRCode", "Orders", new { id =item.Order_ID } )" class="btn btn-dark mt-auto">Get QR Code</a>
+                                </div>
+                            }
                         }
-                    </td>*@
+                    </td>
                     <td>
                         <div class="main-button">
                             <a href="@Url.Action("Order_Details", "Orders", new { id =item.Order_ID } )" class="btn btn-dark mt-auto">Order Details</a>

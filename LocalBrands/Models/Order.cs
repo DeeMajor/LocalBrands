@@ -25,7 +25,8 @@ namespace LocalBrands.Models
         public string ConfirmationCode { get; set; }
         [ForeignKey("Driver")]
         public string Driver_ID { get; set; }
-
+        [Display(Name = "QR Code")]
+        public byte[] QrCodeImage { get; set; }
         public virtual Driver Driver { get; set; }
         public virtual ICollection<Payment> Payments { get; set; }
     }
