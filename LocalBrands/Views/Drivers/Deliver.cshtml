@@ -1,7 +1,7 @@
 ﻿@using Gent_Coders.Services
 @{
     ViewBag.Title = "Deliver";
-    
+
     //Layout = "~/Views/Shared/_Admin.cshtml";
 }
 
@@ -66,8 +66,8 @@
             <div id="dvMap" style="min-height: 500px"></div>
 
         </div>
+        <a class="btn btn-dark mt-auto" href="@Url.Action("Handover","Drivers", new {id = @Session["OrderId"].ToString()})"> Handover </a>
 
-       <a class="btn btn-dark mt-auto" href="@Url.Action("Handover","Order", new {id = @Session["OrderId"].ToString()})"> </a>
 
         <!--ENSURE YOU CHANGE TO YOUR OWN API KEY HERE !!! -->
         <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyCNjO3x-zMLpKEx9L6CuCg6voTPJl8J1dA" type="text/javascript"></script>
