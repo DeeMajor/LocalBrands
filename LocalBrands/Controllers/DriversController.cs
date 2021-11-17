@@ -43,9 +43,11 @@ namespace LocalBrands.Controllers
         }
         public ActionResult Deliver(string id)
         {
+            Session["OrderId"] = id;
 
             return View();
         }
+
         public ActionResult OrderItems(string id)
         {
             if (id == null)

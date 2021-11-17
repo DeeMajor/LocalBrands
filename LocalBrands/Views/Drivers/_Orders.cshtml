@@ -24,12 +24,12 @@
                            
                             <td>
 
-                                <a href="@Url.Action("Order_Details","Orders", new { id = item.Order_ID})" class="d-none d-sm-inline-block btn btn-sm btn-info shadow-sm">
+                                <a href="@Url.Action("OrderDetails","Drivers", new { id = item.Order_ID})" class="d-none d-sm-inline-block btn btn-sm btn-info shadow-sm">
                                     Order Details
                                 </a>
                                 @if (item.status == "Assigned To Driver")
                                 {
-                                    <a href="@Url.Action("Deliver","Driver", new { id = item.Order_ID})" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                    <a href="@Url.Action("Deliver","Drivers", new { id = item.Order_ID})" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                                         Deliver
                                     </a>
                                 }

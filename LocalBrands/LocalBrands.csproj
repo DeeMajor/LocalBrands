@@ -255,6 +255,7 @@
     <Compile Include="Services\Order_Service.cs" />
     <Compile Include="Services\Payment_Service.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Services\TechLogic.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Admin\css\sb-admin-2.css" />
