@@ -91,7 +91,7 @@ namespace LocalBrands.Controllers
                 order_Item.ReturnReason = Reason;
                 db.Entry(order_Item).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Return", new { id = order_Item.Order_id });
+                return RedirectToAction("Return_Items", new { id = order_Item.Order_id });
             }
             return View();
         }
